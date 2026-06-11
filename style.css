@@ -329,3 +329,62 @@ footer {
 
 /* Limpieza del CSS anterior (Opcional pero recomendado para evitar choques) */
 /* Si tenías .carousel-track img:hover en tu código anterior, puedes borrarlo porque ya lo cubrimos arriba con .carousel-item:hover img */
+
+/* =========================================
+   CORRECCIÓN PARA MÓVILES (Celulares)
+   ========================================= */
+
+/* 1. Bloquear el desbordamiento horizontal en toda la página */
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* 2. Ajustes responsivos para pantallas pequeñas */
+@media (max-width: 768px) {
+    /* Menú de navegación más compacto */
+    .navbar {
+        padding: 15px 10px;
+        text-align: center;
+    }
+
+    .navbar ul {
+        padding-top: 10px;
+        gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    /* Reducir márgenes y textos del inicio */
+    .hero {
+        height: auto;
+        padding: 60px 20px;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+
+    /* Hacer el carrusel más amigable para pantallas estrechas */
+    .carousel-title {
+        font-size: 1.5rem;
+    }
+
+    .carousel-track img {
+        width: 110px;
+        height: 110px;
+        border-width: 2px; /* Borde más delgado en celular */
+    }
+
+    /* Ajustar las tarjetas del catálogo al ancho de la pantalla */
+    .product-grid {
+        padding: 0 10px;
+    }
+
+    .product-card {
+        width: 100%;
+        max-width: 320px; /* Evita que sea más ancho que el celular más pequeño */
+    }
+}
