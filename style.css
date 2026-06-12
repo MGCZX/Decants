@@ -1,24 +1,32 @@
-/* Variables de color basadas en el logo de Kuma Decants */
+/* =========================================
+   VARIABLES Y BASE
+   ========================================= */
 :root {
-    --primary-color: #0b1a30; /* Azul Marino Profundo */
-    --gold-accent: #c49a45; /* Dorado */
-    --light-bg: #fdfbf7; /* Crema muy claro */
+    --primary-color: #0b1a30; 
+    --gold-accent: #c49a45; 
+    --light-bg: #fdfbf7; 
     --text-color: #333333;
 }
 
-* {
+/* LA SOLUCIÓN DEFINITIVA PARA EL DESBORDAMIENTO HORIZONTAL */
+html, body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
-}
-
-body {
     background-color: var(--light-bg);
     color: var(--text-color);
+    overflow-x: hidden; /* Corta el espacio blanco extra */
+    width: 100%;
 }
 
-/* Navegación */
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
+/* =========================================
+   NAVEGACIÓN
+   ========================================= */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -42,6 +50,8 @@ body {
     list-style: none;
     display: flex;
     gap: 20px;
+    margin: 0;
+    padding: 0;
 }
 
 .navbar a {
@@ -55,7 +65,9 @@ body {
     color: var(--gold-accent);
 }
 
-/* Hero Section */
+/* =========================================
+   HERO (INICIO)
+   ========================================= */
 .hero {
     height: 70vh;
     background: linear-gradient(rgba(11, 26, 48, 0.7), rgba(11, 26, 48, 0.7)), url('https://images.unsplash.com/photo-1615529328331-f8917597711f?auto=format&fit=crop&w=1200&q=80') center/cover;
@@ -85,6 +97,7 @@ body {
     text-decoration: none;
     font-weight: 700;
     border-radius: 5px;
+    display: inline-block;
     transition: transform 0.3s, background-color 0.3s;
 }
 
@@ -93,10 +106,96 @@ body {
     transform: translateY(-3px);
 }
 
-/* Sección Productos */
+/* =========================================
+   CARRUSEL (MARQUESINA)
+   ========================================= */
+.carousel-container {
+    padding: 50px 0 20px 0;
+    background-color: var(--light-bg);
+    text-align: center;
+    width: 100%;
+}
+
+.carousel-title {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.carousel {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    box-shadow: inset 20px 0 20px -20px rgba(0,0,0,0.5), inset -20px 0 20px -20px rgba(0,0,0,0.5);
+}
+
+.carousel-track {
+    display: flex;
+    width: max-content;
+    gap: 20px;
+    padding: 10px 20px;
+    animation: scroll-horizontal 25s linear infinite;
+}
+
+.carousel-item {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.carousel-item img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 50%; 
+    border: 3px solid var(--gold-accent);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.carousel-item-title {
+    position: absolute;
+    bottom: 20px;
+    background-color: rgba(11, 26, 48, 0.9);
+    color: var(--gold-accent);
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+}
+
+.carousel:hover .carousel-track {
+    animation-play-state: paused;
+}
+
+.carousel-item:hover img {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+.carousel-item:hover .carousel-item-title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@keyframes scroll-horizontal {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 10px)); } 
+}
+
+/* =========================================
+   PRODUCTOS (CATÁLOGO)
+   ========================================= */
 .products-section {
     padding: 60px 20px;
     text-align: center;
+    width: 100%;
 }
 
 .products-section h2 {
@@ -110,6 +209,8 @@ body {
     flex-wrap: wrap;
     justify-content: center;
     gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .product-card {
@@ -183,12 +284,15 @@ body {
     color: var(--primary-color);
 }
 
-/* Footer */
+/* =========================================
+   FOOTER
+   ========================================= */
 footer {
     background-color: var(--primary-color);
     color: white;
     text-align: center;
     padding: 40px 20px 20px;
+    width: 100%;
 }
 
 .footer-content h3 {
@@ -209,123 +313,57 @@ footer {
     color: #aaa;
 }
 
-/* Responsividad para móviles */
+/* =========================================
+   DISEÑO PARA CELULARES (RESPONSIVE)
+   ========================================= */
 @media (max-width: 768px) {
     .navbar {
         flex-direction: column;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .navbar ul {
+        margin-top: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 15px;
     }
+
+    .hero {
+        height: auto;
+        padding: 60px 20px;
+    }
+
     .hero h1 {
-        font-size: 2.2rem;
+        font-size: 2rem;
+    }
+
+    .carousel-title {
+        font-size: 1.5rem;
+    }
+
+    .carousel-item img {
+        width: 120px;
+        height: 120px;
+        border-width: 2px;
+    }
+
+    /* Ocultamos el texto flotante en móvil para no saturar la pantalla chica */
+    .carousel-item-title {
+        display: none; 
+    }
+
+    .products-section {
+        padding: 40px 15px;
+    }
+
+    .product-grid {
+        padding: 0;
+    }
+
+    .product-card {
+        width: 100%; /* Toma el ancho de la pantalla */
+        max-width: 350px; /* Pero no crece exageradamente */
     }
 }
-
-/* =========================================
-   ESTILOS DEL CARRUSEL AUTOMÁTICO
-   ========================================= */
-
-.carousel-container {
-    padding: 50px 0 20px 0;
-    background-color: var(--light-bg);
-    text-align: center;
-}
-
-.carousel-title {
-    color: var(--primary-color);
-    font-size: 2rem;
-    margin-bottom: 30px;
-}
-
-.carousel {
-    overflow: hidden;
-    width: 100%;
-    position: relative;
-    /* Sombras a los lados para dar efecto de profundidad */
-    box-shadow: inset 20px 0 20px -20px rgba(0,0,0,0.5), inset -20px 0 20px -20px rgba(0,0,0,0.5);
-}
-
-.carousel-track {
-    display: flex;
-    width: max-content;
-    gap: 20px;
-    padding: 10px 20px;
-    /* Aquí definimos la velocidad. 25s es el tiempo que tarda en dar la vuelta */
-    animation: scroll-horizontal 25s linear infinite;
-}
-
-.carousel-track img {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 50%; /* Hace las fotos redondas. Cámbialo a '10px' si las prefieres cuadradas */
-    border: 3px solid var(--gold-accent);
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-}
-
-/* Pausar animación cuando el usuario pone el mouse encima */
-.carousel:hover .carousel-track {
-    animation-play-state: paused;
-}
-
-/* Efecto de acercamiento al tocar una foto */
-.carousel-track img:hover {
-    transform: scale(1.05);
-    cursor: pointer;
-}
-
-/* Fotogramas clave para el movimiento infinito */
-@keyframes scroll-horizontal {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(calc(-50% - 10px)); } 
-}
-
-/* Ajustes para celular */
-@media (max-width: 768px) {
-    .carousel-track img {
-        width: 150px;
-        height: 150px;
-    }
-}
-
-/* =========================================
-   ESTILOS PARA EL NOMBRE FLOTANTE (HOVER)
-   ========================================= */
-
-.carousel-item {
-    position: relative;
-    display: flex;
-    justify-content: center;
-}
-
-.carousel-item-title {
-    position: absolute;
-    bottom: 20px; /* Distancia desde abajo */
-    background-color: rgba(11, 26, 48, 0.9); /* Azul marino con transparencia */
-    color: var(--gold-accent); /* Texto dorado */
-    padding: 6px 15px;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    white-space: nowrap;
-    opacity: 0; /* Oculto por defecto */
-    transform: translateY(10px); /* Ligeramente más abajo para el efecto */
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    pointer-events: none; /* Evita que el texto interfiera con el mouse */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-}
-
-/* Efecto al pasar el mouse por todo el contenedor de la imagen */
-.carousel-item:hover img {
-    transform: scale(1.05);
-    cursor: pointer;
-}
-
-/* Mostrar el texto y subirlo suavemente al pasar el mouse */
-.carousel-item:hover .carousel-item-title {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Limpieza del CSS anterior (Opcional pero recomendado para evitar choques) */
-/* Si tenías .carousel-track img:hover en tu código anterior, puedes borrarlo porque ya lo cubrimos arriba con .carousel-item:hover img */
