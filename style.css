@@ -132,15 +132,23 @@ html, body {
 .carousel-track {
     display: flex;
     width: max-content;
-    gap: 20px;
-    padding: 10px 20px;
-    animation: scroll-horizontal 25s linear infinite;
+    /* Quitamos el gap y el padding de aquí para no arruinar el cálculo del 50% */
+    padding: 10px 0;
+    animation: scroll-horizontal 20s linear infinite; /* 20s es la velocidad */
 }
 
 .carousel-item {
     position: relative;
     display: flex;
     justify-content: center;
+    /* Agregamos la separación directamente en cada foto (15px por lado) */
+    margin: 0 15px; 
+}
+
+@keyframes scroll-horizontal {
+    0% { transform: translateX(0); }
+    /* Ahora al moverse exactamente al 50%, el segundo set de fotos calzará perfecto */
+    100% { transform: translateX(-50%); } 
 }
 
 .carousel-item img {
